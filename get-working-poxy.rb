@@ -7,7 +7,7 @@ require 'faraday'
 require 'cgi'
 require 'net/ping'
 
-shortlistedproxy = []
+@shortlistedproxy = []
 
 ##
 # creates new connection to google.com using +Faraday+ lib. Uses CGI::Cookie class
@@ -19,15 +19,12 @@ def test(proxy)
 		f = Faraday.new(:proxy => { :uri => "http://" + proxy})
 		response = f.get "http://www.google.co.in"
 		@cookie = CGI::Cookie.parse(response.headers["set-cookie"])
-		if(@cookie["NID"].empty?)
-			puts ":(\n#{@proxy_str} is NOT working."
-		else
-			puts ":)\n#{@proxy_str} is working."
-			ap proxy
-			shortlistedproxy.push(proxy)
+		if(!@cookie["NID"].empty?)
+			# ap proxy
+			@shortlistedproxy.push(proxy)
 		end
 	rescue
-		puts ":(\nConnection to #{@proxy_str} timed out."
+		# puts ":(\nConnection to #{proxy} timed out."
 	end
 end
 
@@ -41,10 +38,9 @@ listofproxies.each do |proxy|
 	temp[:country] = proxy.css('td:nth-child(3)').text
 	# ap temp
 	pr = "#{temp[:ip]}:#{temp[:port]}"
-	ap pr
 	if temp[:country] == "US"
 		test(pr)
 	end
 end
 
-ap shortlistedproxy
+ap @shortlistedproxy
