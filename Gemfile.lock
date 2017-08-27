@@ -1,0 +1,25 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    awesome_print (1.8.0)
+    faraday (0.13.1)
+      multipart-post (>= 1.2, < 3)
+    mini_portile2 (2.2.0)
+    multipart-post (2.0.0)
+    nokogiri (1.8.0)
+      mini_portile2 (~> 2.2.0)
+    paint (1.0.1)
+    restclient (0.14.4)
+      paint (~> 1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  awesome_print
+  faraday
+  nokogiri
+  restclient
+
+BUNDLED WITH
+   1.15.4
